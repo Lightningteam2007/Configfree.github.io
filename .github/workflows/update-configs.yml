@@ -25,7 +25,14 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
       - name: کپی فایل processed_configs.txt به configs.txt
         run: |
-          cp config/processed_configs.txt configfree/configs.txt
+          if [ -f config/processed_configs.txt ]; then
+            cp config/processed_configs.txt configfree/configs.txt
+            echo "فایل configs.txt با موفقیت کپی شد"
+            cat configfree/configs.txt | head -n 5  # چاپ 5 خط اول برای دیباگ
+          else
+            echo "خطا: فایل processed_configs.txt پیدا نشد"
+            exit 1
+          fi
       - name: تنظیم محیط GitHub Pages
         uses: actions/configure-pages@v4
       - name: آپلود فایل‌ها به GitHub Pages
@@ -39,12 +46,13 @@ jobs:
           cd configfree
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
+          git pull origin main --rebase  # Pull تغییرات ریموت
           git add configs.txt
           if git diff --staged --quiet; then
             echo "هیچ تغییری برای کامیت وجود ندارد"
           else
             git commit -m "به‌روزرسانی کانفیگ‌ها از processed_configs.txt"
-            git push
+            git push origin main
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
