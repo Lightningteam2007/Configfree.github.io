@@ -8,10 +8,12 @@ fetch('configs.txt')
     .then(data => {
         if (!data.trim()) {
             console.error('فایل configs.txt خالی است');
+            document.getElementById('config-list').innerHTML = '<p>فایل کانفیگ خالی است.</p>';
             return;
         }
         const configs = data.trim().split('\n');
         const configList = document.getElementById('config-list');
+        configList.innerHTML = ''; // پاک کردن محتوای قبلی
         configs.forEach(config => {
             const div = document.createElement('div');
             div.className = 'config-item';
@@ -33,4 +35,4 @@ function copyConfig(config) {
     }).catch(err => {
         console.error('خطا در کپی:', err);
     });
-}
+            }
