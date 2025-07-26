@@ -49,4 +49,4 @@ function copyConfig(config) {
     }).catch(err => {
         console.error('خطا در کپی:', err);
     });
-              }
+               }
