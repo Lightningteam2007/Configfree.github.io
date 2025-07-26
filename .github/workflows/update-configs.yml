@@ -1,30 +1,42 @@
-name: Update Configs and Deploy
+name: Update Configs and Deploy to GitHub Pages
 on:
   schedule:
     - cron: '*/30 * * * *'  # هر 30 دقیقه
   workflow_dispatch:  # امکان اجرای دستی
 permissions:
   contents: write
+  pages: write
+  id-token: write
 jobs:
-  update-configs:
+  update-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: دریافت مخزن Configsfree
+      - name: دریافت مخزن Configfree
         uses: actions/checkout@v4
         with:
-          repository: Configsfree/Configsfree.github.io
-          path: configsfree
+          repository: Lightningteam2007/Configfree.github.io
+          path: configfree
+          token: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
       - name: دریافت فایل processed_configs.txt از مخزن Config
         uses: actions/checkout@v4
         with:
           repository: Lightningteam2007/Config
           path: config
+          token: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
       - name: کپی فایل processed_configs.txt به configs.txt
         run: |
-          cp config/processed_configs.txt configsfree/configs.txt
-      - name: Commit و Push تغییرات
+          cp config/processed_configs.txt configfree/configs.txt
+      - name: تنظیم محیط GitHub Pages
+        uses: actions/configure-pages@v4
+      - name: آپلود فایل‌ها به GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: configfree
+      - name: انتشار به GitHub Pages
+        uses: actions/deploy-pages@v4
+      - name: Commit تغییرات به مخزن
         run: |
-          cd configsfree
+          cd configfree
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
           git add configs.txt
@@ -35,4 +47,4 @@ jobs:
             git push
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
