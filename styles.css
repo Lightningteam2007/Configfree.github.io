@@ -137,6 +137,36 @@ header p {
     transform: scale(1.05);
 }
 
+/* دکمه شناور تلگرام */
+.floating-telegram-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #0088cc;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+    animation: pulse 2s infinite;
+    z-index: 1000;
+}
+
+.floating-telegram-btn:hover {
+    background: #006699;
+    transform: scale(1.1);
+}
+
+.telegram-icon {
+    width: 24px;
+    height: 24px;
+}
+
 /* فوتر */
 footer {
     background: #1e293b;
@@ -148,15 +178,6 @@ footer {
     width: 100%;
 }
 
-footer a {
-    color: #60a5fa;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
 /* انیمیشن‌ها */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
@@ -166,6 +187,12 @@ footer a:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 /* ریسپانسیو */
@@ -195,6 +222,11 @@ footer a:hover {
 
     .telegram-btn {
         padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .floating-telegram-btn {
+        padding: 0.6rem 1rem;
         font-size: 0.9rem;
     }
     }
