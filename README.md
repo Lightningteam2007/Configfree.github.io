@@ -1,1 +1,1 @@
-# Configfree.github.io
+# Configsfree.github.io
