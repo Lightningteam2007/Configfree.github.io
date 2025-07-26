@@ -1,54 +1,200 @@
-body {
-    font-family: 'Vazir', sans-serif;
+/* بازنشانی استایل‌های پیش‌فرض */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    direction: rtl;
-    text-align: right;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Vazir', sans-serif;
+    background: linear-gradient(135deg, #f0f2f5, #e0e7ff);
+    direction: rtl;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* هدر */
 header {
-    background-color: #007bff;
+    background: linear-gradient(90deg, #2563eb, #1e40af);
     color: white;
     text-align: center;
-    padding: 2rem;
+    padding: 3rem 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-main {
+
+.header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
 }
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    animation: fadeIn 1s ease-in;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* کانتینر اصلی */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* لودینگ */
+.loading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #2563eb;
+    margin: 2rem 0;
+    display: none;
+}
+
+.loading::after {
+    content: '⠙⠚⠛⠜⠝⠞';
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+/* لیست کانفیگ‌ها */
+.config-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
 .config-item {
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.config-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
 .config-text {
-    word-break: break-all;
     flex: 1;
+    font-size: 0.95rem;
+    color: #333;
+    word-break: break-all;
     margin-left: 1rem;
 }
+
 .copy-btn {
-    background-color: #28a745;
+    background: #10b981;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
 }
+
 .copy-btn:hover {
-    background-color: #218838;
+    background: #059669;
 }
-footer {
+
+/* بخش تلگرام */
+.telegram-section {
     text-align: center;
-    padding: 1rem;
-    background-color: #333;
+    margin: 3rem 0;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.telegram-section p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+.telegram-btn {
+    display: inline-block;
+    background: #0088cc;
     color: white;
-    position: fixed;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.telegram-btn:hover {
+    background: #006699;
+    transform: scale(1.05);
+}
+
+/* فوتر */
+footer {
+    background: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    position: relative;
     bottom: 0;
     width: 100%;
+}
+
+footer a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .config-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .config-text {
+        margin-left: 0;
+    }
+
+    .copy-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .telegram-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
     }
