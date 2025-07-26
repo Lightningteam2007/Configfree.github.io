@@ -1,0 +1,38 @@
+name: Update Configs and Deploy
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # هر 30 دقیقه
+  workflow_dispatch:  # امکان اجرای دستی
+permissions:
+  contents: write
+jobs:
+  update-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: دریافت مخزن Configsfree
+        uses: actions/checkout@v4
+        with:
+          repository: Configsfree/Configsfree.github.io
+          path: configsfree
+      - name: دریافت فایل processed_configs.txt از مخزن Config
+        uses: actions/checkout@v4
+        with:
+          repository: Lightningteam2007/Config
+          path: config
+      - name: کپی فایل processed_configs.txt به configs.txt
+        run: |
+          cp config/processed_configs.txt configsfree/configs.txt
+      - name: Commit و Push تغییرات
+        run: |
+          cd configsfree
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add configs.txt
+          if git diff --staged --quiet; then
+            echo "هیچ تغییری برای کامیت وجود ندارد"
+          else
+            git commit -m "به‌روزرسانی کانفیگ‌ها از processed_configs.txt"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
