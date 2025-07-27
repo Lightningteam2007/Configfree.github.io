@@ -190,4 +190,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 commentList.appendChild(div);
             });
     }
+
+    // پنهان کردن هدر با اسکرول به سمت پایین
+    let lastScroll = 0;
+    const header = document.querySelector('.sticky-header');
+
+    window.addEventListener('scroll', () => {
+        let currentScroll = window.pageYOffset;
+
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            // وقتی اسکرول به سمت پایین می‌ره و بیشتر از 100px باشه، هدر محو می‌شه
+            header.classList.add('hide');
+        } else {
+            // وقتی اسکرول به سمت بالا می‌ره، هدر برمی‌گرده
+            header.classList.remove('hide');
+        }
+
+        lastScroll = currentScroll;
+    });
 });
