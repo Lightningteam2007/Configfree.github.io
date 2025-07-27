@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loading = document.getElementById('loading');
     const configList = document.getElementById('config-list');
 
-    // نمایش لودینگ
     loading.style.display = 'block';
     configList.style.display = 'none';
 
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const configs = data.trim().split('\n');
-            configList.innerHTML = ''; // پاک کردن محتوای قبلی
+            configList.innerHTML = '';
             configs.forEach(config => {
                 const div = document.createElement('div');
                 div.className = 'config-item';
@@ -49,4 +48,4 @@ function copyConfig(config) {
     }).catch(err => {
         console.error('خطا در کپی:', err);
     });
-               }
+                }
